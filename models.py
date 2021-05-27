@@ -20,9 +20,6 @@ class Client(BaseTable):
 
 
 class ShoppingProgress(BaseTable):
-    category = peewee.CharField()
-    goods = JSONField()
     phone_number = peewee.CharField()
+    cart_sum = peewee.IntegerField(default=0)
     confirmed = peewee.BooleanField(default=False)
-    # todo передавать в goods json файл со списком покупок по категориям типа круассаны : [шок, шок, класс],
-    # todo эклер : [ваниль, шоколад, карамель, карамель]

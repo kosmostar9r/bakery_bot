@@ -1,7 +1,6 @@
 from assortment.assortment import elements_by_category
 
 
-# todo  разобраться как получать id фото
 def create_elements(category):
     elements = []
     for elem in category:
@@ -12,12 +11,14 @@ def create_elements(category):
             'action': {
                 'type': 'open_photo'
             },
-            'buttons': [{
-                'action': {
-                    'type': 'text',
-                    'label': f"Добавить в корзину {elem['title']}"
-                }
-            }]
+            'buttons': [
+                {
+                    'action': {
+                        'type': 'text',
+                        'label': f"Добавить в корзину {elem['title']}"
+                    },
+                    "color": "primary"
+                }]
         }
         elements.append(template)
     return elements
@@ -28,6 +29,8 @@ def carousel_template(category):
         'type': 'carousel',
         'elements': create_elements(elements_by_category[category]),
     }
+
     return carousel
 
-
+# category = 'Круассаны'
+# print(type(carousel_template(category)))
