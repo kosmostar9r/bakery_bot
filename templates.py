@@ -31,6 +31,3 @@ def carousel_template(category):
     }
 
     return carousel
-
-# category = 'Круассаны'
-# print(type(carousel_template(category)))

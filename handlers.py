@@ -1,8 +1,8 @@
 import re
 from assortment.assortment import prices
 
-categories = ['Круассаны', 'Эклеры', 'Торты', ' Сытная выпечка']
-clear = 'Очистить карзину'
+categories = ['Круассаны', 'Эклеры', 'Торты', 'Закуски']
+clear = 'Очистить корзину'
 back = 'К категориям'
 to_cart = 'В корзину'
 buy = 'Купить'
@@ -12,9 +12,8 @@ re_phone_number = re.compile(r'89\d{9}|[+]79\d{9}')
 
 def collect_cart_sum(cart):
     total = 0
-    for good in cart["goods"]:
-        if good in prices:
-            total += prices[good]
+    for idx, good, price in cart["goods"]:
+        total += price
     return total
 
 
@@ -33,17 +32,26 @@ def handle_categories(text, context):
 
 def handle_carousel(text, context):
     continue_shopping = re.search(add, text)
-    next_step = re.search(to_cart, text)
+    chosen_cart = re.search(to_cart, text)
     to_categories = re.search(back, text)
     if continue_shopping:
+        idx = context['goods_idx']
         item = text[len(continue_shopping[0]) + 1:]
-        order = (item, prices[item])
-        try:
+        order = (idx, item, prices[item])
+        if order not in context['goods']:
             context['goods'].append(order)
-        except KeyError:
-            context['goods'] = [order]
+            goods_content = []
+            for good in context['goods']:
+                formed = f'\n-{good[1]}.....{good[2]}р'
+                goods_content.append(formed)
+            if goods_content:
+                context['goods_content'] = '\n'.join(goods_content)
+            else:
+                context['goods_content'] = 'Корзина пуста'
+        else:
+            pass
         return 'step2'
-    elif next_step:
+    elif chosen_cart:
         return 'step3'
     elif to_categories:
         return 'step1'
@@ -56,10 +64,12 @@ def handle_cart(text, context):
     clear_cart = re.search(clear, text)
     purchase = re.search(buy, text)
     if purchase:
+        context['cart_sum'] = collect_cart_sum(context)
         return 'step4'
     elif clear_cart:
         context['goods'] = []
-        return 'step3'
+        context['goods_content'] = 'Корзина пуста'
+        return 'step1'
     elif to_categories:
         return 'step1'
     else:
@@ -71,11 +81,11 @@ def handle_submit(text, context):
     purchase = re.search(buy, text)
     if purchase:
         context['confirmed'] = True
-        context['cart_sum'] = collect_cart_sum(context)
         return 'step5'
     elif clear_cart:
         context['goods'] = []
-        return 'step3'
+        context['goods_content'] = 'Корзина пуста'
+        return 'step1'
     else:
         return False
 
@@ -83,7 +93,7 @@ def handle_submit(text, context):
 def handle_phone(text, context):
     match = re.search(re_phone_number, text)
     if match:
-        context['number'] = match[0]
-        return True
+        context['phone_number'] = match[0]
+        return 'step6'
     else:
         return False

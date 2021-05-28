@@ -23,3 +23,4 @@ class ShoppingProgress(BaseTable):
     phone_number = peewee.CharField()
     cart_sum = peewee.IntegerField(default=0)
     confirmed = peewee.BooleanField(default=False)
+    order = JSONField()

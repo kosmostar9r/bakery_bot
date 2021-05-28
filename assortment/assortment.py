@@ -50,9 +50,9 @@ elements_by_category = {
             'image': 'assortment/images/cakes/red_cube_cake.jpg'
         },
     ],
-    'Сытная выпечка': [
+    'Закуски': [
         {
-            'title': 'Киш с ветчиной и сыром',
+            'title': 'Киш с ветчиной',
             'description': 'Цена: 350р',
             'image': 'assortment/images/snacks/pork_cheese_pie.jpg'
         },
@@ -79,7 +79,7 @@ prices = {
     'Медовик': 280,
     'Лимонный тарт': 280,
     'Мусс красный куб': 320,
-    'Киш с ветчиной и сыром': 350,
+    'Киш с ветчиной': 350,
     'Сэндвич с тунцом': 370,
     'Сэндвич с лососем': 450
 }

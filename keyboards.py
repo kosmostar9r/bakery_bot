@@ -30,25 +30,31 @@ categories_kb = {
                     "label": "Круассаны",
                 },
                 "color": "primary"
-            },
+            }
+        ],
+        [
             {
                 "action": {
                     "type": "text",
                     "label": "Эклеры",
                 },
                 "color": "primary"
-            },
+            }
+        ],
+        [
             {
                 "action": {
                     "type": "text",
                     "label": "Торты",
                 },
                 "color": "primary"
-            },
+            }
+        ],
+        [
             {
                 "action": {
                     "type": "text",
-                    "label": "Сытная выпечка",
+                    "label": "Закуски",
                 },
                 "color": "primary"
             }
@@ -59,7 +65,7 @@ categories_kb = {
                     "type": "text",
                     "label": "В корзину",
                 },
-                "color": "primary"
+                "color": "positive"
 
             }
         ]
@@ -93,6 +99,7 @@ carousel_kb = json.dumps(carousel_kb, ensure_ascii=False).encode('utf-8')
 carousel_kb = str(carousel_kb.decode('utf-8'))
 
 cart_kb = {
+    "one_time": True,
     "buttons": [
         [
             {
@@ -125,6 +132,7 @@ cart_kb = json.dumps(cart_kb, ensure_ascii=False).encode('utf-8')
 cart_kb = str(cart_kb.decode('utf-8'))
 
 submit_kb = {
+    "one_time": True,
     'buttons': [
         [
             {
