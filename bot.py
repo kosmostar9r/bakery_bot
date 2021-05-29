@@ -8,7 +8,8 @@ from playhouse.db_url import connect
 import handlers
 import keyboards
 import templates
-from models import Client, ShoppingProgress
+from database_updater import update_categories
+from models import Client, ShoppingProgress, Categories, Product
 
 try:
     from settings import settings
@@ -50,6 +51,11 @@ class Bot:
             self.db.create_tables([Client])
         if not self.db.table_exists([ShoppingProgress]):
             self.db.create_tables([ShoppingProgress])
+        if not self.db.table_exists([Categories]):
+            self.db.create_tables([Categories])
+        if not self.db.table_exists([Product]):
+            self.db.create_tables([Product])
+        update_categories(Categories, Product)
 
     def run(self):
         for event in self.long_poller.listen():
@@ -95,7 +101,7 @@ class Bot:
                       scenario_name=scenario_name,
                       step_name=first_step,
                       context={'goods': [],
-                               'goods_content': '',
+                               'goods_content': 'Корзина пуста',
                                'goods_idx': 1,
                                'cart_sum': 0})
 

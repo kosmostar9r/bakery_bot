@@ -24,3 +24,15 @@ class ShoppingProgress(BaseTable):
     cart_sum = peewee.IntegerField(default=0)
     confirmed = peewee.BooleanField(default=False)
     order = JSONField()
+
+
+class Categories(BaseTable):
+    category = peewee.CharField()
+
+
+class Product(BaseTable):
+    title = peewee.CharField(max_length=80)
+    description = peewee.CharField(max_length=80)
+    price = peewee.IntegerField()
+    photo = peewee.BlobField()
+    category = peewee.ForeignKeyField(Categories, default=None)

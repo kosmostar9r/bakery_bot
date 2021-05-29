@@ -1,7 +1,6 @@
 import re
-from assortment.assortment import prices
+from models import Categories, Product
 
-categories = ['Круассаны', 'Эклеры', 'Торты', 'Закуски']
 clear = 'Очистить корзину'
 back = 'К категориям'
 to_cart = 'В корзину'
@@ -18,6 +17,7 @@ def collect_cart_sum(cart):
 
 
 def handle_categories(text, context):
+    categories = [cat.category for cat in Categories.select()]
     for category in categories:
         chosen_category = re.search(category, text)
         chosen_cart = re.search(to_cart, text)
@@ -37,7 +37,8 @@ def handle_carousel(text, context):
     if continue_shopping:
         idx = context['goods_idx']
         item = text[len(continue_shopping[0]) + 1:]
-        order = (idx, item, prices[item])
+        price = Product.get(Product.title == item).price
+        order = (idx, item, price)
         if order not in context['goods']:
             context['goods'].append(order)
             goods_content = []
