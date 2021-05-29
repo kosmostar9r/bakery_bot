@@ -126,7 +126,6 @@ class Bot:
         else:
             text_to_send = step["failure_text"].format(**state.context)
             self.send_text(text_to_send, user_id, context=state.context, keyboard=keyboards.carousel_kb)
-            Client.delete().where(Client.user_id == user_id).execute()
 
     def send_text(self, text_to_send, user_id, context, keyboard=keyboards.hidden_kb, template=None, atl_text=None):
         if template:
