@@ -131,7 +131,8 @@ class Bot:
                               context=state.context).where(Client.user_id == state.user_id).execute()
         else:
             text_to_send = step["failure_text"].format(**state.context)
-            self.send_text(text_to_send, user_id, context=state.context, keyboard=keyboards.carousel_kb)
+            keyboard = getattr(keyboards, step["keyboard"]) if step["keyboard"] else None
+            self.send_text(text_to_send, user_id, context=state.context, keyboard=keyboard)
 
     def send_text(self, text_to_send, user_id, context, keyboard=keyboards.hidden_kb, template=None, atl_text=None):
         if template:
