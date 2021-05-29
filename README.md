@@ -29,3 +29,7 @@ Now run $python3 bot.py
 --Used tools.
 
 SQLite: database for storing data about assortment and users order.
+
+--Note
+
+Directory "assortment" is used only to create initial database with products.
