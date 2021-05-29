@@ -69,7 +69,7 @@ SCENARIOS = {
                 "alt_text": None,
                 "keyboard": 'hidden_kb',
                 "template": None,
-                "failure_text": "Прошу прощения, не понял вас, используйте кнопки",
+                "failure_text": "Прошу прощения, не получается распознать номер, используйте шаблон 8хххххххххх",
                 "handler": "handle_phone",
                 "finish_scenario": True
             },
