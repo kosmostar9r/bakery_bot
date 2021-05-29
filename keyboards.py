@@ -11,7 +11,8 @@ starting_kb = {
                 "color": "primary"
             },
         ],
-    ]
+    ],
+    "inline": True
 }
 starting_kb = json.dumps(starting_kb, ensure_ascii=False).encode('utf-8')
 starting_kb = str(starting_kb.decode('utf-8'))
